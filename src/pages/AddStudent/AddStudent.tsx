@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Form from "../../components/AddStudent";
+import Form from "../../components/Form";
 
 const AddStudent: FC = () => {
   return (
