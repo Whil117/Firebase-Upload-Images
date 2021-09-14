@@ -1,5 +1,5 @@
 import { ChangeEvent,  FC, FormEvent, useState } from "react";
-import { getStorage, ref, uploadBytes,getDownloadURL,storageRef } from "firebase/storage";
+import { getStorage, ref, uploadBytes,getDownloadURL } from "firebase/storage";
 
 import {
   FormBox,
@@ -39,12 +39,12 @@ const Form: FC = () => {
     });
   };
   
-  const handleUploadImage = (img:File) => {
+  const handleUploadImage = async(img:File) => {
     const storage = getStorage();
     const storageRef = ref(storage, `photos/${img?.name}_${Date.now()}`)
-    const StarRef = storageRef.child(`photos/${img?.name}`)
-    StarRef.get.getDownloadURL().then((message: string)=>console.log(message))
-    uploadBytes(storageRef, img).then((snapshot) =>console.log(snapshot));
+    uploadBytes(storageRef, img).then((snapshot) =>console.log(snapshot))
+    const url = await getDownloadURL(storageRef)
+    console.log(url)
   }
 
   const handleImage = (event: any ) => {
